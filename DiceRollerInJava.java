@@ -17,11 +17,34 @@ public class DiceRollerInJava {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         DiceRollerInJava dice = new DiceRollerInJava();
+        int count = 0;
+
         while (true) {
-            int result = dice.roll();
-            System.out.println("dice face value:" + result);
-            dice.draw(result);
- 
+            System.out.println("Type 'odd' to get odd results, or 'even' to get even results");
+            String choice = scanner.nextLine();
+
+            System.out.println("How many dices you want to roll?");
+            int dices = Integer.valueOf(scanner.nextLine());
+
+            for (int i = 0; i < dices; i++)
+            {
+                int result = dice.roll();
+                if (choice.equalsIgnoreCase("odd")) {
+                    while ((result % 2) == 0) {
+                        result = dice.roll();
+                    }
+                }
+
+                if (choice.equalsIgnoreCase("even")) {
+                    while ((result % 2) == 1) {
+                        result = dice.roll();
+                    }
+                }
+
+                System.out.println("Times the dice has been rolled: " + ++count);
+                System.out.println("dice face value:" + result);
+                dice.draw(result);
+            }
             System.out.println("Roll again? (type no to quit):");
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("n") || 
